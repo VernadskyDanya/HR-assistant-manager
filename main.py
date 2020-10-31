@@ -31,6 +31,7 @@ def callback_query(call):
         start(call.message.chat.id)
 
         """Ветка Вопрос по рекрутменту"""
+
     if call.data == "recrut":
         from recrutBranch import recrut
         recrut(call.message.chat.id, bot)
@@ -69,6 +70,7 @@ def callback_query(call):
         wantOpenOut(call.message.chat.id, bot)
 
         """Ветка Вопрос по обучению"""
+
     if call.data == "study":
         from studyBranch import study
         study(call.message.chat.id, bot)
@@ -87,15 +89,33 @@ def callback_query(call):
 
         """Ветка Вопрос по адаптации"""
 
-
-
-
-
-
     if call.data == "adaptation":
-        pass
+        from adaptBranch import adaptation
+        adaptation(call.message.chat.id, bot)
+    if call.data == "whatToDo":
+        from adaptBranch import whatToDO
+        whatToDO(call.message.chat.id, bot)
+    if call.data == "myRole":
+        from adaptBranch import myRole
+        myRole(call.message.chat.id, bot)
+    if call.data == "taskToCheck":
+        from adaptBranch import taskToCheck
+        taskToCheck(call.message.chat.id, bot)
+    if call.data == "baddy":
+        from adaptBranch import baddy
+        baddy(call.message.chat.id, bot)
+    if call.data == "mentor":
+        from adaptBranch import mentor
+        mentor(call.message.chat.id, bot)
+    if call.data == "reminders":
+        from adaptBranch import reminders
+        reminders(call.message.chat.id, bot)
+
+        """Ветка Вопрос по кадровому резерву"""
+
     if call.data == "persReserve":
-        pass
+        from adaptBranch import reminders
+        reminders(call.message.chat.id, bot)
 
 
 bot.polling(none_stop=False, interval=0, timeout=20)

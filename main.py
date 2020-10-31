@@ -68,13 +68,33 @@ def callback_query(call):
         from recrutBranch import wantOpenOut
         wantOpenOut(call.message.chat.id, bot)
 
-
         """Ветка Вопрос по обучению"""
-    if call.data == "Study":
+    if call.data == "study":
+        from studyBranch import study
+        study(call.message.chat.id, bot)
+    if call.data == "howToLearn":
+        from studyBranch import howToLearn
+        howToLearn(call.message.chat.id, bot)
+    if call.data == "iKnow":
+        from studyBranch import iKnow
+        iKnow(call.message.chat.id, bot)
+    if call.data == "helpProgram":
+        from studyBranch import helpProgram
+        helpProgram(call.message.chat.id, bot)
+    if call.data == "restriction":
+        from studyBranch import restriction
+        restriction(call.message.chat.id, bot)
+
+        """Ветка Вопрос по адаптации"""
+
+
+
+
+
+
+    if call.data == "adaptation":
         pass
-    if call.data == "Adaptation":
-        pass
-    if call.data == "PersReserve":
+    if call.data == "persReserve":
         pass
 
 

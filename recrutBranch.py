@@ -1,3 +1,5 @@
+"""Ветка Вопрос по рекрутменту"""
+
 from telebot import types
 
 

@@ -5,10 +5,10 @@ bot = telebot.TeleBot(passwords.key)
 
 
 def start(message_chat_id):
-    button1 = types.InlineKeyboardButton(text="У меня вопрос по рекрутменту", callback_data="recrut")
-    button2 = types.InlineKeyboardButton(text="У меня вопрос по обучению", callback_data="study")
-    button3 = types.InlineKeyboardButton(text="У меня вопрос по адаптации", callback_data="adaptation")
-    button4 = types.InlineKeyboardButton(text="У меня вопрос по кадровому резерву", callback_data="persReserve")
+    button1 = types.InlineKeyboardButton(text="👨🏼‍⚖️У меня вопрос по рекрутменту", callback_data="recrut")
+    button2 = types.InlineKeyboardButton(text="📘 У меня вопрос по обучению", callback_data="study")
+    button3 = types.InlineKeyboardButton(text="🐧 У меня вопрос по адаптации", callback_data="adaptation")
+    button4 = types.InlineKeyboardButton(text="👩🏻‍🔬 У меня вопрос по кадровому резерву", callback_data="persReserve")
     markup = types.InlineKeyboardMarkup()
     markup.row(button1)
     markup.row(button2)
@@ -114,8 +114,8 @@ def callback_query(call):
         """Ветка Вопрос по кадровому резерву"""
 
     if call.data == "persReserve":
-        from adaptBranch import reminders
-        reminders(call.message.chat.id, bot)
+        from persResBranch import persRes
+        persRes(call.message.chat.id, bot)
 
 
 bot.polling(none_stop=False, interval=0, timeout=20)

@@ -2,7 +2,7 @@
 from telebot import types
 
 
-def baddy(message_chat_id, bot):
+def persRes(message_chat_id, bot):
     button1 = types.InlineKeyboardButton(text="Бот Помощник Руководителя ",
                                          url="https://t.me/Personnel_helpbot")
     button2 = types.InlineKeyboardButton(text="🔙 Назад", callback_data="start")

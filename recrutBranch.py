@@ -4,12 +4,12 @@ from telebot import types
 
 
 def recrut(message_chat_id, bot):
-    button1 = types.InlineKeyboardButton(text="Есть ли у меня вакансия",
+    button1 = types.InlineKeyboardButton(text="⚖️Есть ли у меня вакансия",
                                          callback_data="vacation")
-    button2 = types.InlineKeyboardButton(text="Как понять бюджет позиции", callback_data="budget")
-    button3 = types.InlineKeyboardButton(text="Внутренний поиск",
+    button2 = types.InlineKeyboardButton(text="💰 Как понять бюджет позиции", callback_data="budget")
+    button3 = types.InlineKeyboardButton(text="🔎 Внутренний поиск",
                                          callback_data="inSearch")
-    button4 = types.InlineKeyboardButton(text="Внешний поиск", callback_data="outSearch")
+    button4 = types.InlineKeyboardButton(text="🔍 Внешний поиск", callback_data="outSearch")
     button5 = types.InlineKeyboardButton(text="🔙 Назад", callback_data="start")
     types.InlineKeyboardMarkup()
     markup = types.InlineKeyboardMarkup()
@@ -18,7 +18,7 @@ def recrut(message_chat_id, bot):
     markup.row(button3)
     markup.row(button4)
     markup.row(button5)
-    bot.send_message(message_chat_id, "Выбери вопрос по рекрутменту:", reply_markup=markup)
+    bot.send_message(message_chat_id, "Выбери вопрос по рекрутменту 👨🏼‍⚖:", reply_markup=markup)
 
 
 def vacation(message_chat_id, bot):
@@ -63,7 +63,7 @@ def inSearch(message_chat_id, bot):
     markup.row(button4)
     markup.row(button5)
     markup.row(button6)
-    bot.send_message(message_chat_id, "Выбери вопрос по внутреннему поиску:", reply_markup=markup)
+    bot.send_message(message_chat_id, "Выбери вопрос по внутреннему поиску 🔎:", reply_markup=markup)
 
 
 def rules(message_chat_id, bot):
@@ -136,7 +136,7 @@ def outSearch(message_chat_id, bot):
     markup.row(button3)
     markup.row(button5)
     markup.row(button6)
-    bot.send_message(message_chat_id, "Выбери вопрос по внешнему поиску:", reply_markup=markup)
+    bot.send_message(message_chat_id, "Выбери вопрос по внешнему поиску 🔍:", reply_markup=markup)
 
 def acceptOut(message_chat_id, bot):
     button4 = types.InlineKeyboardButton(text="🔙 Назад", callback_data="outSearch")

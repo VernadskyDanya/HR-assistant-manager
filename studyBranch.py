@@ -17,7 +17,7 @@ def study(message_chat_id, bot):
     markup.row(button3)
     markup.row(button4)
     markup.row(button5)
-    bot.send_message(message_chat_id, "Выбери вопрос по обучению", reply_markup=markup)
+    bot.send_message(message_chat_id, "📘 Выбери вопрос по обучению", reply_markup=markup)
 
 
 def howToLearn(message_chat_id, bot):

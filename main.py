@@ -1,7 +1,22 @@
+import os
+
 import telebot
 import passwords
 from telebot import types
 bot = telebot.TeleBot(passwords.key)
+
+from flask import Flask, request
+import logging
+logger = telebot.logger
+telebot.logger.setLevel(logging.INFO)
+server = Flask(__name__)
+os.environ['FLASK_ENV'] = 'development'
+
+
+@server.route('/' + passwords.key, methods=['POST'])
+def getMessage():
+    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+    return "!", 200
 
 
 def start(message_chat_id):
@@ -118,4 +133,11 @@ def callback_query(call):
         persRes(call.message.chat.id, bot)
 
 
-bot.polling(none_stop=False, interval=0, timeout=20)
+@server.route("/")
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url='https://hr-assistant-manager.herokuapp.com/' + passwords.key)
+    return "!", 200
+
+
+server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))

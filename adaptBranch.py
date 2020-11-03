@@ -90,8 +90,21 @@ def reminders(message_chat_id, bot):
     types.InlineKeyboardMarkup()
     markup = types.InlineKeyboardMarkup()
     markup.add(button4, button5)
-    bot.send_message(message_chat_id, "In progress",
+    bot.send_message(message_chat_id, "Представьтесь в формате Фамилия Имя Отчество",
                      parse_mode = 'HTML', reply_markup=markup)
+
+    @bot.message_handler(content_types=['text'])    # Инициализация куратора и нового сотрудника
+    def init(message):
+        bot.send_message(message.chat.id, "cx")
+        msg = bot.reply_to(message, 'Представьтесь в формате Фамилия Имя Отчество')
+        bot.register_next_step_handler(msg, process_manager, bot)
+
+
+def process_manager(message, bot):
+    try:
+        message = bot.reply_to(message, 'Вашего нового сотрудника зовут (в формате Фамилия Имя Отчество)')
+    except Exception as e:
+        bot.reply_to(message, 'oooops')
 
 
 def myRole(message_chat_id, bot):
@@ -106,5 +119,4 @@ def myRole(message_chat_id, bot):
                                       "в его профессиональной жизни\n<b>Важно на первых этапах</b>:\nМониторить "
                                       "качество работы сотрудника, отслеживать задание на испытательный срок"
                                       "\nОтвечать на сложные вопросы\nПовышать вовлеченность сотрудника"
-,
-                     parse_mode = 'HTML', reply_markup=markup)
+                     ,parse_mode = 'HTML', reply_markup=markup)

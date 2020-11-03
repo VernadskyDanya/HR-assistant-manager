@@ -1,12 +1,11 @@
 import os
-
 import telebot
 import passwords
 from telebot import types
-bot = telebot.TeleBot(passwords.key)
-
 from flask import Flask, request
 import logging
+
+bot = telebot.TeleBot(passwords.key)
 logger = telebot.logger
 telebot.logger.setLevel(logging.INFO)
 server = Flask(__name__)
@@ -17,6 +16,11 @@ os.environ['FLASK_ENV'] = 'development'
 def getMessage():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "!", 200
+
+while True: #Тестирую возможность разбудить heroku и сохранить функционал без многопоточности
+    bot.send_message(204181538, "Я сработал")
+    import time
+    time.sleep(60)
 
 
 def start(message_chat_id):

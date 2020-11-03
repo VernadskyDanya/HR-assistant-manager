@@ -3,13 +3,26 @@ import passwords
 from telebot import types
 import threading
 import time
+from sqlalchemy import create_engine
+engine = create_engine('sqlite:///:memory:', echo=True)
 bot = telebot.TeleBot(passwords.key)
 
+
+#   Создание таблицы в базе данных
+from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
+metadata = MetaData()
+users_table = Table('users', metadata,
+    Column('chat.id', Integer, primary_key=True),
+    Column('leader_name', String),
+    Column('beginner_name', String),
+    Column('password', String)
+)
 
 # Поток для отправки напоминаний
 class threadTimeToCheck(threading.Thread):
     def __init__(self):
             threading.Thread.__init__(self)
+
     def run(self):
            print("Starting TimeToCheck thread")
            while True:

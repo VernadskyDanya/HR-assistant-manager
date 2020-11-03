@@ -1,12 +1,11 @@
 import os
-
 import telebot
 import passwords
 from telebot import types
-bot = telebot.TeleBot(passwords.key)
-
 from flask import Flask, request
 import logging
+
+bot = telebot.TeleBot(passwords.key)
 logger = telebot.logger
 telebot.logger.setLevel(logging.INFO)
 server = Flask(__name__)

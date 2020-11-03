@@ -11,12 +11,31 @@ bot = telebot.TeleBot(passwords.key)
 #   Создание таблицы в базе данных
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
 metadata = MetaData()
-users_table = Table('users', metadata,
-    Column('chat.id', Integer, primary_key=True),
-    Column('leader_name', String),
-    Column('beginner_name', String),
-    Column('password', String)
-)
+requests_table = Table('users', metadata,
+                       Column('chat.id', Integer, primary_key=True),
+                       Column('leader_name', String),
+                       Column('beginner_name', String),
+                       Column('time', String)
+                       )
+metadata.create_all(engine)
+
+
+# Класс для группировки данных в заявку
+class Request:
+    def __init__(self, chat_id, leader_name, beginner_name, time):
+        self.chat_id = chat_id
+        self.leader_name = leader_name
+        self.beginner_name =beginner_name
+        self.time = time
+
+    def __repr__(self): # вызывается при операторе print
+        return "<User('%s','%s', '%s')>" % (self.chat_id, self.leader_name, self.beginner_name, self.time)
+
+
+from sqlalchemy.orm import mapper   # Применим функцию mapper, чтобы создать отображение между Request и requests_table
+mapper(Request, requests_table)
+
+
 
 # Поток для отправки напоминаний
 class threadTimeToCheck(threading.Thread):

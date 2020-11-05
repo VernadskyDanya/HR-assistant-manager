@@ -65,8 +65,7 @@ def baddy(message_chat_id, bot):
                                       "подскажет, какую интересную информацию можно найти на корпоративном "
                                       "портале и как на портал попасть. Бадди и Новый сотрудник вместе "
                                       "пообедают/перекусят/попьют кофе, чтобы в спокойной обстановке "
-                                      "обсудить неформальные вопросы"
-,
+                                      "обсудить неформальные вопросы",
                      parse_mode = 'HTML', reply_markup=markup)
 
 
@@ -93,11 +92,19 @@ def reminders(message_chat_id, bot):
     bot.send_message(message_chat_id, "Представьтесь в формате Фамилия Имя Отчество",
                      parse_mode = 'HTML', reply_markup=markup)
 
-    @bot.message_handler(content_types=['text'])    # Инициализация куратора и нового сотрудника
+    @bot.message_handler(content_types=['text'])    # Инициализация руководителя и нового сотрудника
     def init(message):
-        bot.send_message(message.chat.id, "cx")
-        msg = bot.reply_to(message, 'Представьтесь в формате Фамилия Имя Отчество')
-        bot.register_next_step_handler(msg, process_manager, bot)
+        leader_name = message.text
+        print(leader_name, " <- leader_name")
+        msg = bot.reply_to(message, "Как зовут вашего нового сотрудника (в формате Фамилия Имя Отчество):")
+        bot.register_next_step_handler(message, process_beginner, leader_name)
+
+    def process_beginner(message, leader_name):
+        beginner_name = message.text
+        print(beginner_name, " <- beginner_name")
+        print(leader_name)
+
+
 
 
 def process_manager(message, bot):

@@ -1,1 +1,0 @@
-key = "1400773709:AAGH6ajCCe1hkWnd0Axp3RauZaRP2UT_YCo"

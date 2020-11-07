@@ -119,8 +119,9 @@ def reminders(message_chat_id, bot):
             from sql_alchemy import Request
             try:
                 request = Request(message_chat_id, leader_name, beginner_name, time_for_sql)
+                print(request, "<-- request")
             except Exception as ex:
-                print(ex + " <-- ERROR")
+                print(ex)
                 bot.send_message(message_chat_id, "Произошла ошибка, вам стоит обратиться к @danya04",
                                  parse_mode='HTML', reply_markup=markup)
             return reminders_is_ok(message.chat.id, bot)

@@ -5,7 +5,7 @@ engine = create_engine('sqlite:///testSQLite.db', echo=True)
 #   Создание таблицы в базе данных
 from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
 metadata = MetaData()
-requests_table = Table('users', metadata,
+requests_table = Table('Requests', metadata,
                        Column('chat.id', Integer),
                        Column('leader_name', String),
                        Column('beginner_name', String, primary_key=True),
@@ -23,7 +23,7 @@ class Request:
         self.time = time    # Время создания заявки
 
     def __repr__(self): # вызывается при операторе print
-        return "<User('%s','%s', '%s')>" % (self.chat_id, self.leader_name, self.beginner_name, self.time)
+        return "<Request ('%s','%s', '%s', '%s')>" % (self.chat_id, self.leader_name, self.beginner_name, self.time)
 
 
 # Применим функцию mapper, чтобы создать отображение между Request и requests_table
@@ -38,10 +38,10 @@ session = Session()
 
 # Добавление новых объектов
 import time
-mmm = Request("56789", "Vasiliy Leader", "Ivan beginner", time.ctime())
-amm = Request("21421", "Maksim", "Ivan beginner", time.ctime())
-session.add(mmm)
-session.add(amm)
+#mmm = Request("56789", "Vasiliy Leader", "Ivan beginner", time.ctime())
+#amm = Request("21421", "Maksim", "Ivan beginner", time.ctime())
+#session.add(mmm)
+#session.add(amm)
 session.commit()
 
 for instance in session.query(Request):

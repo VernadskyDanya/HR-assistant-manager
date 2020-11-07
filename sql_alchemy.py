@@ -8,7 +8,7 @@ metadata = MetaData()
 requests_table = Table('users', metadata,
                        Column('chat.id', Integer),
                        Column('leader_name', String),
-                       Column('beginner_name', String),
+                       Column('beginner_name', String, primary_key=True),
                        Column('time', String)
                        )
 metadata.create_all(engine)
@@ -19,7 +19,7 @@ class Request:
     def __init__(self, chat_id, leader_name, beginner_name, time):
         self.chat_id = chat_id
         self.leader_name = leader_name
-        self.beginner_name =beginner_name
+        self.beginner_name = beginner_name
         self.time = time    # Время создания заявки
 
     def __repr__(self): # вызывается при операторе print

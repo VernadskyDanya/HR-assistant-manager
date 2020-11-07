@@ -15,7 +15,7 @@ class threadTimeToCheck(threading.Thread):
            print("Starting TimeToCheck thread")
            while True:
                print("threadTimeToCheck is working! :)")
-               time.sleep(3)
+               time.sleep(15)
            print("Exiting ")
 
 

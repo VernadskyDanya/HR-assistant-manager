@@ -116,8 +116,8 @@ def reminders(message_chat_id, bot):
                 time_for_sql = str(time.localtime()[0]) + "-" + str(time.localtime()[1]) + "-" + str(time.localtime()[2])
             else:
                 time_for_sql = str(time.localtime()[0]) + "-" + str(time.localtime()[1]) + "-0" + str(time.localtime()[2])
-            from sql_alchemy import Request
             try:
+                from sql_alchemy import Request
                 request = Request(message_chat_id, leader_name, beginner_name, time_for_sql)
                 print(request, "<-- request")
             except Exception as ex:

@@ -54,88 +54,88 @@ class mainMenu(threading.Thread):
                """Ветка Вопрос по рекрутменту"""
 
            if call.data == "recrut":
-               from recrutBranch import recrut
+               from branches.recrutBranch import recrut
                recrut(call.message.chat.id, bot)
            if call.data == "vacation":
-               from recrutBranch import vacation
+               from branches.recrutBranch import vacation
                vacation(call.message.chat.id, bot)
            if call.data == "budget":
-               from recrutBranch import budget
+               from branches.recrutBranch import budget
                budget(call.message.chat.id, bot)
            if call.data == "inSearch":
-               from recrutBranch import inSearch
+               from branches.recrutBranch import inSearch
                inSearch(call.message.chat.id, bot)
            if call.data == "outSearch":
-               from recrutBranch import outSearch
+               from branches.recrutBranch import outSearch
                outSearch(call.message.chat.id, bot)
            if call.data == "rules":
-               from recrutBranch import rules
+               from branches.recrutBranch import rules
                rules(call.message.chat.id, bot)
            if call.data == "acceptIn":
-               from recrutBranch import acceptIn
+               from branches.recrutBranch import acceptIn
                acceptIn(call.message.chat.id, bot)
            if call.data == "wantOpenIn":
-               from recrutBranch import wantOpenIn
+               from branches.recrutBranch import wantOpenIn
                wantOpenIn(call.message.chat.id, bot)
            if call.data == "fetchIn":
-               from recrutBranch import fetchIn
+               from branches.recrutBranch import fetchIn
                fetchIn(call.message.chat.id, bot)
            if call.data == "fetchOut":
-               from recrutBranch import fetchOut
+               from branches.recrutBranch import fetchOut
                fetchOut(call.message.chat.id, bot)
            if call.data == "acceptOut":
-               from recrutBranch import acceptOut
+               from branches.recrutBranch import acceptOut
                acceptOut(call.message.chat.id, bot)
            if call.data == "wantOpenOut":
-               from recrutBranch import wantOpenOut
+               from branches.recrutBranch import wantOpenOut
                wantOpenOut(call.message.chat.id, bot)
 
                """Ветка Вопрос по обучению"""
 
            if call.data == "study":
-               from studyBranch import study
+               from branches.studyBranch import study
                study(call.message.chat.id, bot)
            if call.data == "howToLearn":
-               from studyBranch import howToLearn
+               from branches.studyBranch import howToLearn
                howToLearn(call.message.chat.id, bot)
            if call.data == "iKnow":
-               from studyBranch import iKnow
+               from branches.studyBranch import iKnow
                iKnow(call.message.chat.id, bot)
            if call.data == "helpProgram":
-               from studyBranch import helpProgram
+               from branches.studyBranch import helpProgram
                helpProgram(call.message.chat.id, bot)
            if call.data == "restriction":
-               from studyBranch import restriction
+               from branches.studyBranch import restriction
                restriction(call.message.chat.id, bot)
 
                """Ветка Вопрос по адаптации"""
 
            if call.data == "adaptation":
-               from adaptBranch import adaptation
+               from branches.adaptBranch import adaptation
                adaptation(call.message.chat.id, bot)
            if call.data == "whatToDo":
-               from adaptBranch import whatToDO
+               from branches.adaptBranch import whatToDO
                whatToDO(call.message.chat.id, bot)
            if call.data == "myRole":
-               from adaptBranch import myRole
+               from branches.adaptBranch import myRole
                myRole(call.message.chat.id, bot)
            if call.data == "taskToCheck":
-               from adaptBranch import taskToCheck
+               from branches.adaptBranch import taskToCheck
                taskToCheck(call.message.chat.id, bot)
            if call.data == "baddy":
-               from adaptBranch import baddy
+               from branches.adaptBranch import baddy
                baddy(call.message.chat.id, bot)
            if call.data == "mentor":
-               from adaptBranch import mentor
+               from branches.adaptBranch import mentor
                mentor(call.message.chat.id, bot)
            if call.data == "reminders":
-               from adaptBranch import reminders
+               from branches.adaptBranch import reminders
                reminders(call.message.chat.id, bot)
 
                """Ветка Вопрос по кадровому резерву"""
 
            if call.data == "persReserve":
-               from persResBranch import persRes
+               from branches.persResBranch import persRes
                persRes(call.message.chat.id, bot)
 
        bot.polling(none_stop=False, interval=0, timeout=20)

@@ -1,19 +1,3 @@
-from sqlalchemy import create_engine
-engine = create_engine('sqlite:///testSQLite.db', echo=True)
-
-
-#   Создание таблицы в базе данных
-from sqlalchemy import Table, Column, Integer, String, MetaData, ForeignKey
-metadata = MetaData()
-requests_table = Table('Requests', metadata,
-                       Column('chat.id', Integer),
-                       Column('leader_name', String),
-                       Column('beginner_name', String, primary_key=True),
-                       Column('time', String)
-                       )
-metadata.create_all(engine)
-
-
 # Класс для группировки данных в заявку
 class Request:
     def __init__(self, chat_id, leader_name, beginner_name, time):
@@ -26,6 +10,20 @@ class Request:
         return "<Request ('%s','%s', '%s', '%s')>" % (self.chat_id, self.leader_name, self.beginner_name, self.time)
 
 
+from sqlalchemy import create_engine
+engine = create_engine('sqlite:///testSQLite.db', echo=True)
+
+#   Создание таблицы в базе данных
+from sqlalchemy import Table, Column, Integer, String, MetaData
+metadata = MetaData()
+requests_table = Table('Requests', metadata,
+                       Column('chat_id', Integer),
+                       Column('leader_name', String),
+                       Column('beginner_name', String, primary_key=True),
+                       Column('time', String)
+                       )
+metadata.create_all(engine)
+
 # Применим функцию mapper, чтобы создать отображение между Request и requests_table
 from sqlalchemy.orm import mapper
 mapper(Request, requests_table)
@@ -37,13 +35,12 @@ Session.configure(bind=engine)  # Соединение с сессией
 session = Session()
 
 # Добавление новых объектов
-import time
-#mmm = Request("56789", "Vasiliy Leader", "Ivan beginner", time.ctime())
-#amm = Request("21421", "Maksim", "Ivan beginner", time.ctime())
+#mmm = Request(123456, "Vasiliy Leader", "Ivan dsfsfsdbeginner2343200", "1234")
+#amm = Request(1234567, "Maksim", "Ivan beginner42100", "1124")
 #session.add(mmm)
 #session.add(amm)
 session.commit()
 
 for instance in session.query(Request):
-    print(instance.chat_id, "", instance.time)
+    print(instance.chat_id, " ", instance.leader_name, " ", instance.time)
 

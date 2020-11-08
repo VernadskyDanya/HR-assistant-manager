@@ -110,16 +110,19 @@ def reminders(message_chat_id, bot):
         if length == 3:
             beginner_name = message.text
             # Создаём время для SQLite
-            # Если календарный день с 1 по 9 прибавляем 0 для формата DD, а не D
             import time
-            if time.localtime()[2] // 10 != 0:
+            if time.localtime()[2] // 10 != 0:      # Если календарный день с 1 по 9 прибавляем 0 для формата DD, а не D
                 time_for_sql = str(time.localtime()[0]) + "-" + str(time.localtime()[1]) + "-" + str(time.localtime()[2])
             else:
                 time_for_sql = str(time.localtime()[0]) + "-" + str(time.localtime()[1]) + "-0" + str(time.localtime()[2])
-            try:
-                from sql_alchemy import Request
-                request = Request(message_chat_id, leader_name, beginner_name, time_for_sql)
-                print(request, "<-- request")
+
+            try:    # Пытаемся создать строчку в бд
+                from request_struct import Request
+                new_request = Request(message_chat_id, leader_name, beginner_name, time_for_sql)    # Создаём заявку для бд
+                print(new_request)
+                from sql_alchemy import add_reminder
+                add_reminder(new_request)
+
             except Exception as ex:
                 print(ex)
                 bot.send_message(message_chat_id, "Произошла ошибка, вам стоит обратиться к @danya04",

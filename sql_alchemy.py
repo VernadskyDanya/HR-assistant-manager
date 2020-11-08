@@ -1,15 +1,3 @@
-# Класс для группировки данных в заявку
-class Request:
-    def __init__(self, chat_id, leader_name, beginner_name, time):
-        self.chat_id = chat_id
-        self.leader_name = leader_name
-        self.beginner_name = beginner_name
-        self.time = time    # Время создания заявки
-
-    def __repr__(self): # вызывается при операторе print
-        return "<Request ('%s','%s', '%s', '%s')>" % (self.chat_id, self.leader_name, self.beginner_name, self.time)
-
-
 from sqlalchemy import create_engine
 engine = create_engine('sqlite:///testSQLite.db', echo=True)
 
@@ -26,6 +14,7 @@ metadata.create_all(engine)
 
 # Применим функцию mapper, чтобы создать отображение между Request и requests_table
 from sqlalchemy.orm import mapper
+from request_struct import Request
 mapper(Request, requests_table)
 
 # Создание сессии
@@ -34,13 +23,22 @@ Session = sessionmaker(bind=engine)
 Session.configure(bind=engine)  # Соединение с сессией
 session = Session()
 
-# Добавление новых объектов
-#mmm = Request(123456, "Vasiliy Leader", "Ivan dsfsfsdbeginner2343200", "1234")
-#amm = Request(1234567, "Maksim", "Ivan beginner42100", "1124")
-#session.add(mmm)
-#session.add(amm)
-session.commit()
 
-for instance in session.query(Request):
-    print(instance.chat_id, " ", instance.leader_name, " ", instance.time)
+# Добавление новых объектов
+def add_reminder(new_request: Request):
+    try:
+        session.add(new_request)
+        print("session.add(new_request)")
+        session.commit()
+        print("session.commit()")
+        engine.connect().close()
+    except:
+        import logging
+        logging.error("Problem in add_reminder function in sql_alchemy.py")
+
+
+# Пробегаемся по бд
+def scan_bd():
+    for instance in session.query(Request):
+        print(instance.chat_id, " ", instance.leader_name, " ", instance.time)
 

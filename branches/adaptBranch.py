@@ -115,14 +115,13 @@ def reminders(message_chat_id, bot):
             time_for_sql = datetime(time.localtime()[0], time.localtime()[1], time.localtime()[2])
             try:
                 from sql_alchemy import add_request
-                #request = Request(message_chat_id, leader_name, beginner_name, time_for_sql)
                 add_request(message_chat_id, leader_name, beginner_name, time_for_sql)
-                #print(request, "<-- request")
+                return reminders_is_ok(message.chat.id, bot)
             except Exception as ex:
-                print(ex)
+                import logging
+                logging.error(ex)
                 bot.send_message(message_chat_id, "Произошла ошибка, вам стоит обратиться к @danya04",
                                  parse_mode='HTML', reply_markup=markup)
-            return reminders_is_ok(message.chat.id, bot)
         else:
             bot.reply_to(message, "Упс, я вас не понимаю.\n"
                                   "1. Проверьте написание ФИО и начните заново c ввода имени руководителя\n"

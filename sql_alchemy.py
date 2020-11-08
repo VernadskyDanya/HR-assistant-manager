@@ -1,5 +1,5 @@
 
-# Почему-то не получается сделать разделить код :(
+# Почему-то не получается разделить код :(
 
 def add_request(message_chat_id, leader_name, beginner_name, time_for_sql):
     # Класс для группировки данных в заявку
@@ -12,7 +12,6 @@ def add_request(message_chat_id, leader_name, beginner_name, time_for_sql):
 
         def __repr__(self): # вызывается при операторе print
             return "<Request ('%s','%s', '%s', '%s')>" % (self.chat_id, self.leader_name, self.beginner_name, self.time)
-
 
     from sqlalchemy import create_engine
     engine = create_engine('sqlite:///testSQLite.db', echo=True)

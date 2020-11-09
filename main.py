@@ -7,20 +7,21 @@ bot = telebot.TeleBot(passwords.key)
 
 
 # Поток для отправки напоминаний
-class threadTimeToCheck(threading.Thread):
+class ThreadTimeToCheck(threading.Thread):
     def __init__(self):
             threading.Thread.__init__(self)
 
     def run(self):
-           print("Starting TimeToCheck thread")
+           print("thread_time_to_check has started...")
+           from sql_alchemy import send_reminder
            while True:
-               print("threadTimeToCheck is working! :)")
-               time.sleep(15)
+               send_reminder()
+               time.sleep(30)
            print("Exiting ")
 
 
 # Поток для работы меню
-class mainMenu(threading.Thread):
+class MainMenu(threading.Thread):
    def __init__(self):
        threading.Thread.__init__(self)
    def run(self):
@@ -145,8 +146,8 @@ class mainMenu(threading.Thread):
 # Создать треды
 
 
-thread1 = threadTimeToCheck()
-thread2 = mainMenu()
+thread1 = ThreadTimeToCheck()
+thread2 = MainMenu()
 
 # Запустить треды
 thread1.start()

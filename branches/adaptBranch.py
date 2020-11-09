@@ -93,7 +93,7 @@ def reminders(message_chat_id, bot):
                      parse_mode = 'HTML', reply_markup=markup)
 
     @bot.message_handler(content_types=['text'])    # Инициализация руководителя и нового сотрудника
-    def init(message):
+    def process_manager(message):  # Инициализация руководителя
         s = message.text.split()
         length = len(s)  # Смотрим количество слов, должно быть три (ФИО)
         if length == 3:
@@ -104,7 +104,7 @@ def reminders(message_chat_id, bot):
             bot.reply_to(message, "Упс, я тебя не понимаю, проверь написание "
                                   "ФИО или воспользуйся кнопками для меню")
 
-    def process_beginner(message, leader_name):
+    def process_beginner(message, leader_name):     # Инициализация нового сотрудника
         s = message.text.split()
         length = len(s)  # Смотрим количество слов, должно быть три (ФИО)
         if length == 3:
@@ -136,13 +136,6 @@ def reminders_is_ok(message_chat_id, bot):
     markup.add(button4, button5)
     bot.send_message(message_chat_id, "Напоминания настроены! :)",
                      parse_mode = 'HTML', reply_markup=markup)
-
-
-def process_manager(message, bot):
-    try:
-        message = bot.reply_to(message, 'Вашего нового сотрудника зовут (в формате Фамилия Имя Отчество)')
-    except Exception as e:
-        bot.reply_to(message, 'oooops')
 
 
 def myRole(message_chat_id, bot):

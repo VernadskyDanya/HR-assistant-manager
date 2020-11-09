@@ -15,9 +15,8 @@ class ThreadTimeToCheck(threading.Thread):
            print("thread_time_to_check has started...")
            from sql_alchemy import send_reminder
            while True:
-               send_reminder()
+               #send_reminder(bot)
                time.sleep(30)
-           print("Exiting ")
 
 
 # Поток для работы меню

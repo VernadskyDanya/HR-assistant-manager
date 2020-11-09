@@ -45,7 +45,7 @@ def add_request(message_chat_id, leader_name, beginner_name, time_for_sql):
         print(instance.chat_id, " ", instance.leader_name, " ", instance.time)
 
 
-def send_reminder():
+def send_reminder(bot):
     # Класс для группировки данных в заявку
     class Request:
         def __init__(self, chat_id, leader_name, beginner_name, time):
@@ -81,10 +81,19 @@ def send_reminder():
     Session.configure(bind=engine)  # Соединение с сессией
     session = Session()
 
-    #for instance in session.query(Request):
-     #   if
-
-    """
+    import time
+    from datetime import date
+    current_time = date(time.localtime()[0], time.localtime()[1], time.localtime()[2])  # Текущая дата
+    from datetime import timedelta
+    time_delta1 = timedelta(-30)
+    time_delta2 = timedelta(-60)
+    time_delta3 = timedelta(-74)
     for instance in session.query(Request):
-        print(instance.chat_id, " ", instance.leader_name, " ", instance.time)
-    """
+        if (instance.time - current_time) == time_delta1:
+            from reminder_messages import time_delta1
+            time_delta1(instance.chat_id, instance.beginner_name, bot)
+        if (instance.time - current_time) == time_delta2:
+            pass
+        if (instance.time - current_time) == time_delta3:
+            pass
+

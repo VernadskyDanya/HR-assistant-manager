@@ -80,5 +80,11 @@ def send_reminder():
     Session = sessionmaker(bind=engine)
     Session.configure(bind=engine)  # Соединение с сессией
     session = Session()
+
+    #for instance in session.query(Request):
+     #   if
+
+    """
     for instance in session.query(Request):
         print(instance.chat_id, " ", instance.leader_name, " ", instance.time)
+    """

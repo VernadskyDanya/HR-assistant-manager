@@ -97,7 +97,7 @@ def reminders(message_chat_id, bot):
         s = message.text.split()
         length = len(s)  # Смотрим количество слов, должно быть три (ФИО)
         if length == 3:
-            leader_name = s[0] + " " + s[1] + " " + s[2]
+            leader_name = s[0] + " " + s[1] + " " + s[2] # Собираем обратно строчку
             bot.reply_to(message, "Как зовут вашего нового сотрудника (в формате Фамилия Имя Отчество):")
             return bot.register_next_step_handler(message, process_beginner, leader_name)
         else:
@@ -109,23 +109,29 @@ def reminders(message_chat_id, bot):
         length = len(s)  # Смотрим количество слов, должно быть три (ФИО)
         if length == 3:
             beginner_name = message.text
-            # Создаём время для SQLite
-            import time
-            from datetime import datetime
-            time_for_sql = datetime(time.localtime()[0], time.localtime()[1], time.localtime()[2])
-            try:
-                from sql_alchemy import add_request
-                add_request(message_chat_id, leader_name, beginner_name, time_for_sql)
-                return reminders_is_ok(message.chat.id, bot)
-            except Exception as ex:
-                import logging
-                logging.error(ex)
-                bot.send_message(message_chat_id, "Произошла ошибка, вам стоит обратиться к @danya04",
-                                 parse_mode='HTML', reply_markup=markup)
+            bot.reply_to(message, "Когда начал работать новый сотрудник?\n"
+                                  "Пожалуйста, напишите дату в формате 2020 9 28")
+            return bot.register_next_step_handler(message, process_time, leader_name, beginner_name)
+
         else:
             bot.reply_to(message, "Упс, я вас не понимаю.\n"
                                   "1. Проверьте написание ФИО и начните заново c ввода имени руководителя\n"
                                   "2. Воспользуйтесь кнопками интерактивного меню")
+
+    def process_time(message, leader_name, beginner_name):
+        # Создаём время для SQLite
+        import time
+        from datetime import datetime
+        time_for_sql = datetime(time.localtime()[0], time.localtime()[1], time.localtime()[2])
+        try:
+            from sql_alchemy import add_request
+            add_request(message_chat_id, leader_name, beginner_name, time_for_sql)
+            return reminders_is_ok(message.chat.id, bot)
+        except Exception as ex:
+            import logging
+            logging.error(ex)
+            bot.send_message(message_chat_id, "Произошла ошибка, вам стоит обратиться к @danya04",
+                             parse_mode='HTML', reply_markup=markup)
 
 
 def reminders_is_ok(message_chat_id, bot):

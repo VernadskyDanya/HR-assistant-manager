@@ -40,9 +40,9 @@ def add_request(message_chat_id, leader_name, beginner_name, time_for_sql):
     new_req = Request(message_chat_id, leader_name, beginner_name, time_for_sql)
     session.add(new_req)
     session.commit()
-
-    for instance in session.query(Request):
-        print(instance.chat_id, " ", instance.leader_name, " ", instance.time)
+    Session.close_all()
+    #for instance in session.query(Request):
+        #print(instance.chat_id, " ", instance.leader_name, " ", instance.time)
 
 
 def send_reminder(bot):
@@ -89,7 +89,7 @@ def send_reminder(bot):
     time_delta2 = timedelta(-60)
     time_delta3 = timedelta(-74)
     for instance in session.query(Request):
-        print(instance.time - current_time)
+        #print(instance.time - current_time)
         if (instance.time - current_time) == time_delta1:
             from reminder_messages import func_time_delta1
             func_time_delta1(instance.chat_id, instance.beginner_name, bot)

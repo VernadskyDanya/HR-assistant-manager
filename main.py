@@ -21,8 +21,7 @@ class ThreadTimeToCheck(threading.Thread):
             except Exception as ex:
                 import logging
                 logging.critical(ex)
-                bot.send_message(204181538, "Произошла ошибка отправка сообщений, вам стоит обратиться к @danya04"
-                                                  " и к @tatyanagolovina1")
+                bot.send_message(204181538, "Произошла ошибка отправки напоминания")
                 break
 
 

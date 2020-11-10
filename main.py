@@ -12,11 +12,18 @@ class ThreadTimeToCheck(threading.Thread):
             threading.Thread.__init__(self)
 
     def run(self):
-           print("thread_time_to_check has started...")
-           from sql_alchemy import send_reminder
-           while True:
-               #send_reminder(bot)
-               time.sleep(30)
+        print("ThreadTimeToCheckHasStarted...")
+        from sql_alchemy import send_reminder
+        while True:
+            try:
+                send_reminder(bot)
+                time.sleep(86400)  # 24 часа
+            except Exception as ex:
+                import logging
+                logging.critical(ex)
+                bot.send_message(204181538, "Произошла ошибка отправка сообщений, вам стоит обратиться к @danya04"
+                                                  " и к @tatyanagolovina1")
+                break
 
 
 # Поток для работы меню

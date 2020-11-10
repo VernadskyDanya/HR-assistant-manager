@@ -13,7 +13,7 @@ def add_request(message_chat_id, leader_name, beginner_name, time_for_sql):
             return "<Request ('%s','%s', '%s', '%s')>" % (self.chat_id, self.leader_name, self.beginner_name, self.time)
 
     from sqlalchemy import create_engine
-    engine = create_engine('sqlite:///Requests_for_reminders.db', echo=True)
+    engine = create_engine('sqlite:///Requests_for_reminders.db', echo=True, connect_args={'check_same_thread': False})
 
     #   Создание таблицы в базе данных
     from sqlalchemy import Table, Column, Integer, String, MetaData, DATE
@@ -58,7 +58,7 @@ def send_reminder(bot):
             return "<Request ('%s','%s', '%s', '%s')>" % (self.chat_id, self.leader_name, self.beginner_name, self.time)
 
     from sqlalchemy import create_engine
-    engine = create_engine('sqlite:///Requests_for_reminders.db', echo=False)
+    engine = create_engine('sqlite:///Requests_for_reminders.db', echo=False, connect_args={'check_same_thread': False})
 
     #   Создание таблицы в базе данных
     from sqlalchemy import Table, Column, Integer, String, MetaData, DATE
@@ -89,11 +89,15 @@ def send_reminder(bot):
     time_delta2 = timedelta(-60)
     time_delta3 = timedelta(-74)
     for instance in session.query(Request):
+        print(instance.time - current_time)
         if (instance.time - current_time) == time_delta1:
-            from reminder_messages import time_delta1
-            time_delta1(instance.chat_id, instance.beginner_name, bot)
+            from reminder_messages import func_time_delta1
+            func_time_delta1(instance.chat_id, instance.beginner_name, bot)
         if (instance.time - current_time) == time_delta2:
-            pass
+            from reminder_messages import func_time_delta2
+            func_time_delta2(instance.chat_id, instance.beginner_name, bot)
         if (instance.time - current_time) == time_delta3:
-            pass
+            from reminder_messages import func_time_delta3
+            func_time_delta3(instance.chat_id, instance.beginner_name, bot)
+    Session.close_all()
 

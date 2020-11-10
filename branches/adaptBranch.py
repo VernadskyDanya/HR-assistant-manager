@@ -130,7 +130,7 @@ def reminders(message_chat_id, bot):
             import logging
             logging.error(ex)
             bot.send_message(message_chat_id, "Произошла ошибка, вам стоит обратиться к @danya04"
-                                              " или к @tatyanagolovina1",
+                                              " и к @tatyanagolovina1",
                              parse_mode='HTML', reply_markup=markup)
 
 

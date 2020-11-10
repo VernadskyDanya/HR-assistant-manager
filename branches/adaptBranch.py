@@ -14,7 +14,7 @@ def adaptation(message_chat_id, bot):
     markup.row(button1)
     markup.row(button2)
     markup.row(button5)
-    bot.send_message(message_chat_id, "Выбери вопрос по адаптации:", reply_markup=markup)
+    bot.send_message(message_chat_id, "Выберите вопрос по адаптации:", reply_markup=markup)
 
 
 def whatToDO(message_chat_id, bot):
@@ -35,7 +35,7 @@ def whatToDO(message_chat_id, bot):
     markup.row(button3)
     markup.row(button4)
     markup.add(button5, button6)
-    bot.send_message(message_chat_id, "Выбери вопрос по выходу нового сотрудника:", reply_markup=markup)
+    bot.send_message(message_chat_id, "Выберите вопрос по выходу нового сотрудника:", reply_markup=markup)
 
 
 def taskToCheck(message_chat_id, bot):
@@ -101,8 +101,8 @@ def reminders(message_chat_id, bot):
             bot.reply_to(message, "Как зовут вашего нового сотрудника (в формате Фамилия Имя Отчество):")
             return bot.register_next_step_handler(message, process_beginner, leader_name)
         else:
-            bot.reply_to(message, "Упс, я тебя не понимаю, проверь написание "
-                                  "ФИО или воспользуйся кнопками для меню")
+            bot.reply_to(message, "Упс, я вас не понимаю, проверьте написание "
+                                  "ФИО или воспользуйтесь кнопками для меню")
 
     def process_beginner(message, leader_name):     # Инициализация нового сотрудника
         s = message.text.split()

@@ -18,7 +18,7 @@ def recrut(message_chat_id, bot):
     markup.row(button3)
     markup.row(button4)
     markup.row(button5)
-    bot.send_message(message_chat_id, "Выбери вопрос по рекрутменту 👨🏼‍⚖:", reply_markup=markup)
+    bot.send_message(message_chat_id, "Выберите вопрос по рекрутменту 👨🏼‍⚖:", reply_markup=markup)
 
 
 def vacation(message_chat_id, bot):
@@ -63,7 +63,7 @@ def inSearch(message_chat_id, bot):
     markup.row(button4)
     markup.row(button5)
     markup.row(button6)
-    bot.send_message(message_chat_id, "Выбери вопрос по внутреннему поиску 🔎:", reply_markup=markup)
+    bot.send_message(message_chat_id, "Выберите вопрос по внутреннему поиску 🔎:", reply_markup=markup)
 
 
 def rules(message_chat_id, bot):
@@ -136,7 +136,7 @@ def outSearch(message_chat_id, bot):
     markup.row(button3)
     markup.row(button5)
     markup.row(button6)
-    bot.send_message(message_chat_id, "Выбери вопрос по внешнему поиску 🔍:", reply_markup=markup)
+    bot.send_message(message_chat_id, "Выберите вопрос по внешнему поиску 🔍:", reply_markup=markup)
 
 def acceptOut(message_chat_id, bot):
     button4 = types.InlineKeyboardButton(text="🔙 Назад", callback_data="outSearch")

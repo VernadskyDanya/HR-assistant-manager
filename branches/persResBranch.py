@@ -10,5 +10,5 @@ def persRes(message_chat_id, bot):
     markup = types.InlineKeyboardMarkup()
     markup.row(button1)
     markup.row(button2)
-    bot.send_message(message_chat_id, "Для этого перейди в бот",
+    bot.send_message(message_chat_id, "Для этого перейдите в бот:",
                      parse_mode = 'HTML', reply_markup=markup)

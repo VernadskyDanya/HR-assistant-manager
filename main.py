@@ -145,12 +145,9 @@ class MainMenu(threading.Thread):
                persRes(call.message.chat.id, bot)
 
        bot.polling(none_stop=False, interval=0, timeout=20)
-
        print("Exiting mainMenu thread!?!?......")
 
 # Создать треды
-
-
 thread1 = ThreadTimeToCheck()
 thread2 = MainMenu()
 

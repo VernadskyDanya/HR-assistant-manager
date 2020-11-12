@@ -2,8 +2,9 @@ import telebot
 import passwords
 from telebot import types
 import time
-bot = telebot.TeleBot(passwords.key, threaded = False)
+bot = telebot.TeleBot(passwords.key)
 
+bot.remove_webhook()
 # Процесс для отправки напоминаний
 def run_reminder():
     print("Run_reminder has started")
@@ -30,11 +31,12 @@ telebot.logger.setLevel(logging.INFO)
 server = Flask(__name__)
 os.environ['FLASK_ENV'] = 'development'
 
+
 @server.route('/' + passwords.key, methods=['POST'])
 def getMessage():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "?", 200
-print("Run_menu has started")
+
 
 def start(message_chat_id):
     button1 = types.InlineKeyboardButton(text="👨🏼‍⚖️У меня вопрос по рекрутменту", callback_data="recrut")
@@ -148,13 +150,15 @@ def callback_query(call):
         from branches.persResBranch import persRes
         persRes(call.message.chat.id, bot)
 
+
 @server.route("/")
 def webhook():
     bot.remove_webhook()
     bot.set_webhook(url='https://telegrambot151.herokuapp.com/' + passwords.key)
     return "!", 200
 
-server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 8443)), debug=False)
+
+server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)), debug=True)
 #server.run(host="0.0.0.0", port=8443, debug=False)
 #bot.polling(none_stop=False, interval=0, timeout=20)
 

@@ -12,8 +12,8 @@ def run_reminder():
     from sql_alchemy import send_reminder
     while True:
         try:
-            #print("Run_reminder is working")
-            #send_reminder(bot)
+            print("Run_reminder is working")
+            send_reminder(bot)
             bot.send_message(204181538, "Отправка напоминания!:)")
             time.sleep(20)  # 24 часа
         except Exception as ex:
@@ -22,8 +22,10 @@ def run_reminder():
             bot.send_message(204181538, "Произошла ошибка отправки напоминания")
             break
 
+
 def run_menu():
     print("Run_menu has started")
+
     def start(message_chat_id):
         button1 = types.InlineKeyboardButton(text="👨🏼‍⚖️У меня вопрос по рекрутменту", callback_data="recrut")
         button2 = types.InlineKeyboardButton(text="📘 У меня вопрос по обучению", callback_data="study")
@@ -37,14 +39,12 @@ def run_menu():
         markup.row(button4)
         bot.send_message(message_chat_id, "Чем тебе помочь?\n", reply_markup=markup)
 
-
     @bot.message_handler(commands=['start'])
     def send_welcome(message):
         bot.send_message(message.chat.id, "Привет, " + str(message.from_user.first_name) +
                          ", это ваш личный HR помощник руководителя! Я всегда готов вам помочь с вопросами.\n"
                          "Ты всегда можешь вернуться в меню командой /start")
         start(message.chat.id)
-
 
     @bot.callback_query_handler(func=lambda call: True)
     def callback_query(call):
@@ -142,8 +142,6 @@ def run_menu():
 
     print("Exiting mainMenu thread!?!?......")
 
-# Создать треды
-
 
 from multiprocessing import Process
 if __name__ == '__main__':
@@ -152,5 +150,5 @@ if __name__ == '__main__':
     process1.start()
     process2.start()
     import logging
-    logging.critical("Program has finished")
+    logging.info("Program has started")
 

@@ -18,24 +18,23 @@ def getMessage():
     bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
     return "!", 200
 
+
 # Процесс для отправки напоминаний
 def run_reminder():
     print("Run_reminder has started")
     from sql_alchemy import send_reminder
-    #while True:
-    try:
-        #print("Run_reminder is working")
-        #send_reminder(bot)
-        bot.send_message(204181538, "Отправка напоминания!:)")
-        #time.sleep(20)  # 24 часа
-    except Exception as ex:
-        import logging
-        logging.critical(ex)
-        bot.send_message(204181538, "Произошла ошибка отправки напоминания")
-        #break
+    while True:
+        try:
+            #print("Run_reminder is working")
+            #send_reminder(bot)
+            bot.send_message(204181538, "Отправка напоминания!:)")
+            time.sleep(20)  # 24 часа
+        except Exception as ex:
+            import logging
+            logging.critical(ex)
+            bot.send_message(204181538, "Произошла ошибка отправки напоминания")
+            break
 
-import schedule
-schedule.every().day.at("16:45").do(run_reminder)
 
 def start(message_chat_id):
     button1 = types.InlineKeyboardButton(text="👨🏼‍⚖️У меня вопрос по рекрутменту", callback_data="recrut")
@@ -149,6 +148,14 @@ def callback_query(call):
         from branches.persResBranch import persRes
         persRes(call.message.chat.id, bot)
 
+
+from multiprocessing import Process
+if __name__ == '__main__':
+    process1 = Process(target=run_reminder)
+    process2 = Process(target=start)
+    process1.start()
+    process2.start()
+    print('Done.')
 
 @server.route("/")
 def webhook():

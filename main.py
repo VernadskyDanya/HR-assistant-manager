@@ -52,12 +52,14 @@ def start(message_chat_id):
     markup.row(button4)
     bot.send_message(message_chat_id, "Чем тебе помочь?\n", reply_markup=markup)
 
+
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.send_message(message.chat.id, "Привет, " + str(message.from_user.first_name) +
                      ", это ваш личный HR помощник руководителя! Я всегда готов вам помочь с вопросами.\n"
-                     "Ты всегда можешь вернуться в меню командой /start")
+                     "Вы всегда можете вернуться в меню командой /start")
     start(message.chat.id)
+
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):

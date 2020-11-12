@@ -157,7 +157,7 @@ def callback_query(call):
 from multiprocessing import Process
 if __name__ == '__main__':
     process1 = Process(target=run_reminder)
-    process2 = Process(target=send_welcome)
+    process2 = Process(target=send_welcome, args=[204181538])
     process1.start()
     process2.start()
     import logging

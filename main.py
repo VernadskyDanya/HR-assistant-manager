@@ -4,27 +4,15 @@ from telebot import types
 import time
 bot = telebot.TeleBot(passwords.key, threaded=True)
 
-import os
-from flask import Flask, request
-import logging
-logger = telebot.logger
-telebot.logger.setLevel(logging.INFO)
-server = Flask(__name__)
-os.environ['FLASK_ENV'] = 'development'
-
-@server.route('/' + passwords.key, methods=['POST'])
-def getMessage():
-    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
-    return "?", 200
-
 # Процесс для отправки напоминаний
 def run_reminder():
     print("Run_reminder has started")
     from sql_alchemy import send_reminder
     while True:
         try:
+            print("Run_reminder is working")
             send_reminder(bot)
-            time.sleep(86400)  # 24 часа
+            time.sleep(20)  # 24 часа
         except Exception as ex:
             import logging
             logging.critical(ex)
@@ -34,6 +22,18 @@ def run_reminder():
 
 # Процесс для работы меню
 def run_menu():
+    import os
+    from flask import Flask, request
+    import logging
+    logger = telebot.logger
+    telebot.logger.setLevel(logging.INFO)
+    server = Flask(__name__)
+    os.environ['FLASK_ENV'] = 'development'
+
+    @server.route('/' + passwords.key, methods=['POST'])
+    def getMessage():
+        bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+        return "?", 200
     print("Run_menu has started")
 
     def start(message_chat_id):
@@ -147,6 +147,15 @@ def run_menu():
         if call.data == "persReserve":
             from branches.persResBranch import persRes
             persRes(call.message.chat.id, bot)
+
+    @server.route("/")
+    def webhook():
+        bot.remove_webhook()
+        bot.set_webhook(url='https://telegrambot151.herokuapp.com/' + passwords.key)
+        return "!", 200
+
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 88)), debug=False)
+
     #bot.polling(none_stop=False, interval=0, timeout=20)
 
     logger.critical("Exiting mainMenu thread!?!?...")
@@ -158,17 +167,11 @@ mp.log_to_stderr()
 logger = mp.get_logger()
 logger.setLevel(logging.INFO)
 if __name__ == '__main__':
-    proc_rem = mp.Process(target=run_reminder)
-    proc_menu = mp.Process(target=run_menu, daemon = False)
+    proc_rem = mp.Process(target=run_reminder, daemon= True)
+    proc_menu = mp.Process(target=run_menu, daemon = True)
     proc_rem.start()
     proc_menu.start()
-
-@server.route("/")
-def webhook():
-    bot.remove_webhook()
-    bot.set_webhook(url='https://telegrambot151.herokuapp.com/' + passwords.key)
-    return "!", 200
-
-server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 88)))
-logger.info("Exiting the Program!")
+    proc_rem.join()
+    proc_menu.join()
+    logger.info("Exiting the Program!")
 

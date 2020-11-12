@@ -31,6 +31,7 @@ def run_menu():
     telebot.logger.setLevel(logging.INFO)
     server = Flask(__name__)
     os.environ['FLASK_ENV'] = 'development'
+    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
     @server.route('/' + passwords.key, methods=['POST'])
     def getMessage():
@@ -154,8 +155,6 @@ def run_menu():
         bot.remove_webhook()
         bot.set_webhook(url='https://telegrambot151.herokuapp.com/' + passwords.key)
         return "!", 200
-
-    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
 
     #bot.polling(none_stop=False, interval=0, timeout=20)
 

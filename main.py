@@ -159,7 +159,7 @@ logger = mp.get_logger()
 logger.setLevel(logging.INFO)
 if __name__ == '__main__':
     proc_rem = mp.Process(target=run_reminder)
-    proc_menu = mp.Process(target=run_menu)
+    proc_menu = mp.Process(target=run_menu, daemon = False)
     proc_rem.start()
     proc_menu.start()
 

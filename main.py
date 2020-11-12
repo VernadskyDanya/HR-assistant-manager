@@ -147,17 +147,10 @@ def run_menu():
         if call.data == "persReserve":
             from branches.persResBranch import persRes
             persRes(call.message.chat.id, bot)
-
-    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)))
     #bot.polling(none_stop=False, interval=0, timeout=20)
 
     logger.critical("Exiting mainMenu thread!?!?...")
 
-@server.route("/")
-def webhook():
-    bot.remove_webhook()
-    bot.set_webhook(url='https://telegrambot151.herokuapp.com/' + passwords.key)
-    return "!", 200
 # Создать процессы
 import multiprocessing as mp
 import logging
@@ -165,11 +158,17 @@ mp.log_to_stderr()
 logger = mp.get_logger()
 logger.setLevel(logging.INFO)
 if __name__ == '__main__':
-    bot.remove_webhook()
-    proc_rem = mp.Process(target=run_reminder, daemon= False)
-    proc_menu = mp.Process(target=run_menu, daemon = False)
+    proc_rem = mp.Process(target=run_reminder)
+    proc_menu = mp.Process(target=run_menu)
     proc_rem.start()
     proc_menu.start()
 
+@server.route("/")
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url='https://telegrambot151.herokuapp.com/' + passwords.key)
+    return "!", 200
+
+server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 88)))
 logger.info("Exiting the Program!")
 

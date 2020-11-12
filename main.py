@@ -2,7 +2,7 @@ import telebot
 import passwords
 from telebot import types
 import time
-bot = telebot.TeleBot(passwords.key, threaded=True)
+bot = telebot.TeleBot(passwords.key, threaded= False)
 
 # Процесс для отправки напоминаний
 def run_reminder():

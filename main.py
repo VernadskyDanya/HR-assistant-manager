@@ -35,7 +35,7 @@ def run_menu():
     @server.route('/' + passwords.key, methods=['POST'])
     def getMessage():
         bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
-        return "!", 200
+        return "?", 200
 
     def start(message_chat_id):
         button1 = types.InlineKeyboardButton(text="👨🏼‍⚖️У меня вопрос по рекрутменту", callback_data="recrut")

@@ -154,8 +154,8 @@ def run_menu():
         bot.set_webhook(url='https://telegrambot151.herokuapp.com/' + passwords.key)
         return "!", 200
 
-    server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)), debug=False)
-
+    #server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)), debug=False)
+    server.run(host="0.0.0.0", port=8443, debug=False)
     #bot.polling(none_stop=False, interval=0, timeout=20)
 
     logger.critical("Exiting mainMenu thread!?!?...")

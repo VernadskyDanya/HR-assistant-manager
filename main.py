@@ -1,9 +1,22 @@
 import telebot
 import passwords
 from telebot import types
-import threading
 import time
 bot = telebot.TeleBot(passwords.key)
+
+import os
+from flask import Flask, request
+import logging
+logger = telebot.logger
+telebot.logger.setLevel(logging.INFO)
+server = Flask(__name__)
+os.environ['FLASK_ENV'] = 'development'
+
+
+@server.route('/' + passwords.key, methods=['POST'])
+def getMessage():
+    bot.process_new_updates([telebot.types.Update.de_json(request.stream.read().decode("utf-8"))])
+    return "!", 200
 
 
 # Процесс для отправки напоминаний
@@ -12,10 +25,9 @@ def run_reminder():
     from sql_alchemy import send_reminder
     while True:
         try:
-            print("Run_reminder is working")
+            print("Run_reminder is working ", time.time())
             send_reminder(bot)
-            bot.send_message(204181538, "Отправка напоминания!:)")
-            time.sleep(20)  # 24 часа
+            time.sleep(86400)  # 24 ours = 86400 seconds
         except Exception as ex:
             import logging
             logging.critical(ex)
@@ -23,6 +35,7 @@ def run_reminder():
             break
 
 
+# Процесс для работы меню
 def run_menu():
     print("Run_menu has started")
 
@@ -140,8 +153,6 @@ def run_menu():
 
     bot.polling(none_stop=False, interval=0, timeout=20)
 
-    print("Exiting mainMenu thread!?!?......")
-
 
 from multiprocessing import Process
 if __name__ == '__main__':
@@ -152,3 +163,12 @@ if __name__ == '__main__':
     import logging
     logging.info("Program has started")
 
+
+@server.route("/")
+def webhook():
+    bot.remove_webhook()
+    bot.set_webhook(url='https://hr-assistant-manager.herokuapp.com/' + passwords.key)
+    return "!", 200
+
+
+server.run(host="0.0.0.0", port=int(os.environ.get('PORT', 5000)), debug=False)

@@ -35,10 +35,6 @@ def run_reminder():
             break
 
 
-# Процесс для работы меню
-#def run_menu():
-    #print("Run_menu has started")
-
 def start(message_chat_id):
     button1 = types.InlineKeyboardButton(text="👨🏼‍⚖️У меня вопрос по рекрутменту", callback_data="recrut")
     button2 = types.InlineKeyboardButton(text="📘 У меня вопрос по обучению", callback_data="study")
@@ -152,8 +148,6 @@ def callback_query(call):
     if call.data == "persReserve":
         from branches.persResBranch import persRes
         persRes(call.message.chat.id, bot)
-
-#bot.polling(none_stop=False, interval=0, timeout=20)
 
 
 from multiprocessing import Process

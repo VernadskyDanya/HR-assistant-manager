@@ -140,8 +140,15 @@ def reminders_is_ok(message_chat_id, bot):
     types.InlineKeyboardMarkup()
     markup = types.InlineKeyboardMarkup()
     markup.add(button4, button5)
-    bot.send_message(message_chat_id, "Напоминания настроены! :)",
-                     parse_mode = 'HTML', reply_markup=markup)
+    bot.send_message(message_chat_id, "Поздравляем вас с выходом нового сотрудника! Для того, чтобы процесс адаптации "
+                                      "новичка был максимально быстрым и комфортным в течение первой недели вам "
+                                      "необходимо:\n"
+                                      "1. Назначить наставника\n"
+                                      "2. Назначить бадди\n"
+                                      "3. Подготовить и ознакомить под подпись с заданием на испытательный срок\n\n"
+                                      "Я буду присылать вам напоминания о точках проверки процесса адаптации\n"
+                                      "Если у вас будут оставаться вопросы, пожалуйста, обратитесь с HR-партнеру",
+                     parse_mode='HTML', reply_markup=markup)
 
 
 def myRole(message_chat_id, bot):

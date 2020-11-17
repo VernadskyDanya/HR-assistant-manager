@@ -1,8 +1,8 @@
 import telebot
 import passwords
 from telebot import types
-import time
 bot = telebot.TeleBot(passwords.key)
+
 
 def start(message_chat_id):
     button1 = types.InlineKeyboardButton(text="👨🏼‍⚖️У меня вопрос по рекрутменту", callback_data="recrut")
@@ -17,12 +17,14 @@ def start(message_chat_id):
     markup.row(button4)
     bot.send_message(message_chat_id, "Чем тебе помочь?\n", reply_markup=markup)
 
+
 @bot.message_handler(commands=['start'])
 def send_welcome(message):
     bot.send_message(message.chat.id, "Привет, " + str(message.from_user.first_name) +
                      ", это ваш личный HR помощник руководителя! Я всегда готов вам помочь с вопросами.\n"
                      "Ты всегда можешь вернуться в меню командой /start")
     start(message.chat.id)
+
 
 @bot.callback_query_handler(func=lambda call: True)
 def callback_query(call):
@@ -115,5 +117,6 @@ def callback_query(call):
     if call.data == "persReserve":
         from branches.persResBranch import persRes
         persRes(call.message.chat.id, bot)
+
 
 bot.polling(none_stop=False, interval=0, timeout=20)

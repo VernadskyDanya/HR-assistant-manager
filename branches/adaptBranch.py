@@ -119,12 +119,12 @@ def reminders(message_chat_id, bot):
 
     def process_time(message, leader_name, beginner_name):
         s = message.text.split()
-        # Создаём время для SQLite
-        from datetime import datetime
-        time_for_sql = datetime(int(s[0]), int(s[1]), int(s[2]))
+        # Создаём время для БД
+        from datetime import date
+        time_for_db = str(date(int(s[0]), int(s[1]), int(s[2])))
         try:
-            from sql_alchemy import add_request
-            add_request(message_chat_id, leader_name, beginner_name, time_for_sql)
+            from db_operations import add_request
+            add_request(message_chat_id, leader_name, beginner_name, time_for_db)
             return reminders_is_ok(message.chat.id, bot)
         except Exception as ex:
             import logging

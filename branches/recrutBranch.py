@@ -28,7 +28,7 @@ def vacation(message_chat_id, bot):
     markup = types.InlineKeyboardMarkup()
     markup.row(button4)
     markup.row(button5)
-    bot.send_message(message_chat_id, "Проверить наличия вакансий в вашем подразделении можно, "
+    bot.send_message(message_chat_id, "Проверить наличие вакансий в вашем подразделении можно, "
                                       "обратившись к <b>HR-партнеру</b>",
                      parse_mode = 'HTML', reply_markup=markup)
 
@@ -48,7 +48,7 @@ def budget(message_chat_id, bot):
 def inSearch(message_chat_id, bot):
     button1 = types.InlineKeyboardButton(text="Какие правила внутреннего перемещения?",
                                          callback_data="rules")
-    button2 = types.InlineKeyboardButton(text="Хочу принять на работу сотрудника из периметра", callback_data="acceptIn")
+    button2 = types.InlineKeyboardButton(text="Принять сотрудника из периметра на работу", callback_data="acceptIn")
     button3 = types.InlineKeyboardButton(text="Хочу открыть внутренний поиск",
                                          callback_data="wantOpenIn")
     button4 = types.InlineKeyboardButton(text="Подать заявку на поиск",
@@ -74,10 +74,12 @@ def rules(message_chat_id, bot):
     markup.row(button4)
     markup.row(button5)
     bot.send_message(message_chat_id, "Для сотрудников, отработавших в текущей должности менее\n"
-                                      "<b>1,5 лет</b> - ВС, ГС; \n<b>2 лет</b> - РН,НО; \n<b>3 лет</b> - НУ"
-                                      "\nтребуется обязательное <b>письменное согласование руководителя</b>. "
+                                      "<b>1,5 лет</b> - ведущий специалист, главный специалист"
+                                      "\n<b>2 лет</b> - руководитель направления, начальник управления"
+                                      "\n<b>3 лет</b> - начальник управления"
+                                      "\nТребуется обязательное <b>письменное согласование руководителя</b>"
                                       "\nРуководитель имеет право задержать сотрудника для отработки "
-                                      "<b>на срок до 1,5 месяцев</b>.\nСотрудники из кадрового резерва и "
+                                      "<b>на срок до 1,5 месяцев</b>\nСотрудники из кадрового резерва и "
                                       "списка HiPo рассматриваются в первую очередь",
                      parse_mode = 'HTML', reply_markup=markup)
 
@@ -118,12 +120,13 @@ def fetchIn(message_chat_id, bot):
     markup = types.InlineKeyboardMarkup()
     markup.row(button4)
     markup.row(button5)
-    bot.send_message(message_chat_id, "Когда-то тут будет бот по рекрутменту",
+    bot.send_message(message_chat_id, "Чтобы подать заявку на поиск, необходимо написать требования к должности, а"
+                                      "также обязанности сотрудника в рамках позиции своему HR-партнеру",
                      parse_mode = 'HTML', reply_markup=markup)
 
 
 def outSearch(message_chat_id, bot):
-    button1 = types.InlineKeyboardButton(text="Есть внешний кандидат, которого я хочу принять",
+    button1 = types.InlineKeyboardButton(text="Хочу принять внешнего кандидата",
                                          callback_data="acceptOut")
     button2 = types.InlineKeyboardButton(text="Хочу окрыть внешний поиск", callback_data="wantOpenOut")
     button3 = types.InlineKeyboardButton(text="Подать заявку на поиск", callback_data="fetchOut")
@@ -137,6 +140,7 @@ def outSearch(message_chat_id, bot):
     markup.row(button5)
     markup.row(button6)
     bot.send_message(message_chat_id, "Выберите вопрос по внешнему поиску 🔍:", reply_markup=markup)
+
 
 def acceptOut(message_chat_id, bot):
     button4 = types.InlineKeyboardButton(text="🔙 Назад", callback_data="outSearch")
@@ -170,5 +174,6 @@ def fetchOut(message_chat_id, bot):
     markup = types.InlineKeyboardMarkup()
     markup.row(button4)
     markup.row(button5)
-    bot.send_message(message_chat_id, "Когда-то тут будет бот по рекрутменту",
+    bot.send_message(message_chat_id, "Чтобы подать заявку на поиск, необходимо написать требования к должности, а"
+                                      "также обязанности сотрудника в рамках позиции своему HR-партнеру",
                      parse_mode = 'HTML', reply_markup=markup)

@@ -6,8 +6,8 @@ bot = telebot.TeleBot(passwords.key)
 try:
     # ПОДКЛЮЧАЕМСЯ К MONGOCLIENT
     import pymongo
-    client = pymongo.MongoClient("mongodb+srv://Danya-user:1510@reminders-adaptation.9v1b0."
-                                 "mongodb.net/<dbname>?retryWrites=true&w=majority")
+    import passwords
+    client = pymongo.MongoClient(passwords.mongodb_key)
     # ПОЛУЧАЕМ БАЗУ ДАННЫХ
     db = client['GN-reminders']
     # ПОЛУЧАЕМ КОЛЛЕКЦИЮ
@@ -37,7 +37,6 @@ try:
             from reminder_messages import func_time_delta3
             func_time_delta3(instance['message_chat_id'], instance['beginner_name'], bot)
             continue
-    bot.send_message(204181538, "Отправка напоминания!:)")
 except Exception as ex:
     import logging
     logging.critical(ex)
